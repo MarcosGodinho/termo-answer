@@ -79,9 +79,9 @@ public class ProcessamentoStrings {
         }
     }
 
-    public static void removerLetras(List<Character> lista, List<Character> letrasParaRemover) {
-        lista.removeAll(letrasParaRemover);
-    }
+//    public static void removerLetras(List<Character> lista, List<Character> letrasParaRemover) {
+//        lista.removeAll(letrasParaRemover);
+//    }
 
     public static String escolherPalavraAleatoria(String arquivo) throws IOException {
         List<String> palavras = lerPalavrasDoArquivo(arquivo);
