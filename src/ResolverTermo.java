@@ -8,11 +8,10 @@ public class ResolverTermo {
     public static void main(String[] args) throws IOException {
 
         // Criando arquivo com as palavras de 5 letras
-        String todasPalavrasPT = "src/palavras-todas.txt";
         String todasPalavrasCincoLetras = "src/5-letras.txt";
-        String PalavrasCincaLetrasAtualizada = "src/5-letras-novo.txt";
 
-        ProcessamentoStrings.processarPalavrasDeCincoLetras(todasPalavrasPT, todasPalavrasCincoLetras);
+        List<String> listaDePalavras = ProcessamentoStrings.lerPalavrasDoArquivo(todasPalavrasCincoLetras);
+        ProcessamentoStrings.colocarPalavrasDoArquivoEmLista(todasPalavrasCincoLetras);
 
         //Boas vindas e regras
         System.out.println("#########################################################\n");
@@ -31,8 +30,6 @@ public class ResolverTermo {
         System.out.println("Tentativa: ##NgO");
         System.out.println("Palavra: GENRO\n");
         System.out.println("#########################################################\n");
-
-        List<Character> alfabeto = ProcessamentoStrings.obterListaAlfabeto();
 
         // Criar um ArrayList com 5 posições, todas inicializadas com null
         List<Character> letrasNoLocalCerto = new ArrayList<>();
@@ -53,37 +50,39 @@ public class ResolverTermo {
             System.out.println("Digite a palavra ou digite 'sair' para sair\n");
 
             // Indicando a palavra para o usuário
-            String palavraIndicada = ProcessamentoStrings.escolherPalavraAleatoria(PalavrasCincaLetrasAtualizada);
-
+            String palavraIndicada = ProcessamentoStrings.escolherPalavraAleatoria(listaDePalavras);
             System.out.println("Digite a palavra " + palavraIndicada + "\n");
             String palavraDigitada = scanner.nextLine();
 
-            for (int i = 0; i < palavraDigitada.length(); i++) {
-                char caractere = palavraDigitada.charAt(i);
 
-                if (caractere == '#') {
+            for (int i = 0; i < palavraDigitada.length(); i++) {
+                char caractereDigitado = palavraDigitada.charAt(i);
+                char caractereIndicado = palavraIndicada.charAt(i);
+
+
+                if (caractereDigitado == '#') {
                     continue;
                 }
 
-                letrasCertas.add(caractere);
+                letrasCertas.add(caractereDigitado);
 
-                if (Character.isUpperCase(caractere)) {
-                    letrasNoLocalCerto.set(i, caractere);
+                if (Character.isUpperCase(caractereDigitado)) {
+                    letrasNoLocalCerto.set(i, caractereDigitado);
                 }
 
-                List<String> palavrasFiltradas = ProcessamentoStrings.removerPalavrasComLetraEspecifica(todasPalavrasCincoLetras, caractere);
-                ProcessamentoStrings.escreverPalavrasEmArquivo(palavrasFiltradas, PalavrasCincaLetrasAtualizada);
+                if (!String.valueOf(caractereDigitado).equalsIgnoreCase(String.valueOf(caractereIndicado))) {
+                    listaDePalavras = ProcessamentoStrings.removerPalavrasComLetra(listaDePalavras, caractereIndicado);
+                }
+            }
+
+            // Exibir as palavras lidas do arquivo
+            System.out.println("Palavras do arquivo:");
+            for (String palavra : listaDePalavras) {
+                System.out.println(palavra);
             }
 
             System.out.println("Local Certo: " + letrasNoLocalCerto);
             System.out.println("Todas letras certas: " + letrasCertas);
-
-            List<Character> listaDeCaracteres = ProcessamentoStrings.separarStringEmLista(palavraDigitada.toUpperCase());
-
-            // Removendo as letras da lista de alfabeto
-            alfabeto.removeAll(listaDeCaracteres);
-
-            System.out.println(alfabeto);
 
             if (palavraDigitada.equals("sair")) {
                 break;
@@ -93,8 +92,3 @@ public class ResolverTermo {
         scanner.close();
     }
 }
-
-
-
-
- 
