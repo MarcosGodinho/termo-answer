@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class ListaDePalavras {
 
@@ -42,20 +41,4 @@ public class ListaDePalavras {
         return palavras;
     }
 
-    private static boolean verificarCorrespondencia(String palavra, List<Character> letrasCertas) {
-        if (palavra.length() != letrasCertas.size()) {
-            return false;
-        }
-
-        for (int i = 0; i < palavra.length(); i++) {
-            char letraPalavra = palavra.charAt(i);
-            Character letraCertas = letrasCertas.get(i);
-
-            if (letraCertas != null && letraCertas != letraPalavra) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 }

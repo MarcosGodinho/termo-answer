@@ -1,7 +1,4 @@
-import java.io.IOException;
 import java.util.*;
-
-import static java.lang.Thread.sleep;
 
 public class WordleSolver {
 
