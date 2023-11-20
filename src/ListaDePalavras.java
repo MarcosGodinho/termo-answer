@@ -3,13 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ProcessamentoStrings {
-
-    public static String escolherPalavraAleatoria(List<String> palavras) {
-        Random random = new Random();
-        int indiceAleatorio = random.nextInt(palavras.size());
-        return palavras.get(indiceAleatorio);
-    }
+public class ListaDePalavras {
 
     static List<String> lerPalavrasDoArquivo(String arquivo) throws IOException {
         List<String> palavras = new ArrayList<>();
@@ -48,15 +42,20 @@ public class ProcessamentoStrings {
         return palavras;
     }
 
-    public static List<String> removerPalavrasComLetra(List<String> palavras, char letra) {
-        List<String> palavrasFiltradas = new ArrayList<>();
+    private static boolean verificarCorrespondencia(String palavra, List<Character> letrasCertas) {
+        if (palavra.length() != letrasCertas.size()) {
+            return false;
+        }
 
-        for (String palavra : palavras) {
-            // Verificar se a palavra contém a letra especificada
-            if (!palavra.toLowerCase().contains(String.valueOf(letra).toLowerCase())) {
-                palavrasFiltradas.add(palavra);
+        for (int i = 0; i < palavra.length(); i++) {
+            char letraPalavra = palavra.charAt(i);
+            Character letraCertas = letrasCertas.get(i);
+
+            if (letraCertas != null && letraCertas != letraPalavra) {
+                return false;
             }
         }
-        return palavrasFiltradas;
+
+        return true;
     }
 }
