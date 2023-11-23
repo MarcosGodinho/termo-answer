@@ -12,8 +12,13 @@ public class WordleGame {
 
     public void playGame() throws InterruptedException {
         while (true) {
-            //System.out.println("Possible words: " + solver.getPossibleWords());
             String guess = solver.makeGuess();
+
+            if (guess.equals("No more possible words left.") || guess.equals("Maximum attempts reached.")) {
+                System.out.println(guess);
+                break;
+            }
+
             System.out.println("Guess: " + guess);
 
             String feedback = solver.getFeedback(guess);
@@ -26,7 +31,7 @@ public class WordleGame {
                 System.out.println("##################################################");
                 System.out.println();
                 System.out.println("Word found: " + guess);
-                System.out.println("Tentativas: " + tentativas);
+                System.out.println("Tries: " + tentativas);
                 System.out.println();
                 System.out.println("##################################################");
                 System.out.println();

@@ -1,22 +1,28 @@
 import java.util.*;
 
+import java.util.*;
+
 public class WordleSolver {
 
     private List<String> possibleWords;
     private Random random;
     private String correctWord;
+    private int attempts;
 
     public WordleSolver(List<String> possibleWords, String correctWord) {
         this.possibleWords = new ArrayList<>(possibleWords);
         this.random = new Random();
         this.correctWord = correctWord;
+        this.attempts = 0;
     }
 
     public String makeGuess() {
         if (possibleWords.isEmpty()) {
-            System.out.println("No more possible words left.");
-            System.exit(1);
+            return "No more possible words left.";
+        } else if (attempts >= 6) {
+            return "Maximum attempts reached.";
         }
+        attempts++;
         return possibleWords.get(random.nextInt(possibleWords.size()));
     }
 
